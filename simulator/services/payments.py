@@ -5,9 +5,9 @@ def process_payment(amount, balance):
     """
     Simulates a payment service with a logic bug
     """
-    # 🔥 Intentional bug: wrong condition
+    #  Intentional bug: wrong condition
     if amount > balance:
-        return "Payment Successful"  # ❌ should fail, but incorrectly succeeds
+        return "Payment Successful"  #  should fail, but incorrectly succeeds
     return "Payment Failed"
 
 

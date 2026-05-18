@@ -3,7 +3,7 @@ services:
     build: .
     container_name: incident-simulator
     environment:
-      ITERATIONS: "600"
+      ITERATIONS: "10"
       SEED: "42"
       WINDOW_SECONDS: "20"
       ALERT_THRESHOLD: "0.30"

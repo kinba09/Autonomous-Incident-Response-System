@@ -5,9 +5,9 @@ def process_order(order):
     """
     Simulates an order service with a logic bug
     """
-    # 🔥 Intentional bug: wrong condition
+    #  Intentional bug: wrong condition
     if order["quantity"] <= 0:
-        return "Order Accepted"  # ❌ should fail for invalid quantity
+        return "Order Accepted"  # should fail for invalid quantity
     return "Order Failed"
 
 

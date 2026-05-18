@@ -3,9 +3,14 @@ import os
 import random
 import time
 import uuid
+import sys
 from collections import defaultdict, deque
 from datetime import datetime, timezone
 from pathlib import Path
+
+ROOT_PATH = Path(__file__).resolve().parents[1]
+if str(ROOT_PATH) not in sys.path:
+    sys.path.insert(0, str(ROOT_PATH))
 
 from simulator.services import SERVICE_HANDLERS, service_response
 
@@ -17,7 +22,7 @@ WINDOW_SECONDS = int(os.getenv("WINDOW_SECONDS", "20"))
 ALERT_THRESHOLD = float(os.getenv("ALERT_THRESHOLD", "0.30"))
 ALERT_COOLDOWN_SECONDS = int(os.getenv("ALERT_COOLDOWN_SECONDS", "30"))
 TICK_SECONDS = float(os.getenv("TICK_SECONDS", "0.2"))
-ITERATIONS = int(os.getenv("ITERATIONS", "600"))
+ITERATIONS = int(os.getenv("ITERATIONS", "20"))
 SEED = int(os.getenv("SEED", "42"))
 
 
