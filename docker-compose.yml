@@ -1,0 +1,15 @@
+services:
+  incident-simulator:
+    build: .
+    container_name: incident-simulator
+    environment:
+      ITERATIONS: "600"
+      SEED: "42"
+      WINDOW_SECONDS: "20"
+      ALERT_THRESHOLD: "0.30"
+      ALERT_COOLDOWN_SECONDS: "30"
+      TICK_SECONDS: "0.2"
+      LOG_PATH: "data/logs/app.jsonl"
+      ALERT_PATH: "data/incidents/alerts.jsonl"
+    volumes:
+      - ./data:/app/data
