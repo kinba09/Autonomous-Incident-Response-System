@@ -5,3 +5,10 @@
 {"timestamp": "2026-05-24T11:57:01.520796", "level": "INFO", "service": "order-service", "message": "Order processing started", "extra": {"order": {"item": "Laptop", "quantity": 1}}}
 {"timestamp": "2026-05-24T11:57:01.520796", "level": "UNAVAILABLE", "service": "order-service", "message": "Order processing failed due to inventory service error", "extra": {"order": {"item": "Laptop", "quantity": 1}}}
 {"timestamp": "2026-05-24T11:57:01.522142", "level": "UNAVAILABLE", "service": "order-service", "message": "Order processing failed", "extra": {"error": "Inventory service unavailable"}}
+{"timestamp": "2026-05-24T12:21:55.647133", "level": "INFO", "service": "auth-service", "message": "Login attempt started", "extra": {}}
+{"timestamp": "2026-05-24T12:21:55.647449", "level": "ERROR", "service": "auth-service", "message": "Login failed: Unauthorized access attempt", "extra": {"error": "'NoneType' object is not subscriptable"}}
+{"timestamp": "2026-05-24T12:21:55.647499", "level": "INFO", "service": "payment-service", "message": "Payment initiated", "extra": {"amount": null, "balance": 500}}
+{"timestamp": "2026-05-24T12:21:55.647542", "level": "ERROR", "service": "payment-service", "message": "Payment failed due to invalid input", "extra": {"amount": null, "balance": 500}}
+{"timestamp": "2026-05-24T12:21:55.647581", "level": "INFO", "service": "order-service", "message": "Order processing started", "extra": {"order": {"item": "Laptop", "quantity": 1}}}
+{"timestamp": "2026-05-24T12:21:55.647612", "level": "ERROR", "service": "order-service", "message": "Order processing failed due to inventory service error", "extra": {"order": {"item": "Laptop", "quantity": 1}}}
+{"timestamp": "2026-05-24T12:21:55.647648", "level": "ERROR", "service": "order-service", "message": "Order processing failed", "extra": {"error": "Inventory service unavailable"}}

@@ -13,7 +13,7 @@ def process_payment(amount, balance):
 
     if amount is None or balance is None:
         log_event(
-            "RUNTIME_ERROR",
+            "ERROR",
             service_name,
             "Payment failed due to invalid input",
             {"amount": amount, "balance": balance}
@@ -22,9 +22,9 @@ def process_payment(amount, balance):
 
     if amount > balance:
         log_event(
-            "RUNTIME_ERROR",
+            "WARN",
             service_name,
-            "Payment failed due to declined transaction",
+            "Payment declined due to insufficient balance",
             {"amount": amount, "balance": balance}
         )
         return "Payment Failed"

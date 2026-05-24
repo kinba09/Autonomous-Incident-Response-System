@@ -1,4 +1,5 @@
 import json
+import uuid
 from datetime import datetime
 from pathlib import Path
 
@@ -19,46 +20,62 @@ def read_logs():
     return logs
 
 
+def _classify_alert(log):
+    service = log["service"]
+    level = log["level"]
+    message = log["message"]
+    extra = log.get("extra", {})
+
+    alert_type = None
+    severity = None
+
+    if level == "ERROR":
+        if "invalid input" in message.lower():
+            alert_type = "INVALID_INPUT"
+            severity = "MEDIUM"
+        elif "inventory service" in message.lower() or "unavailable" in message.lower():
+            alert_type = "DEPENDENCY_FAILURE"
+            severity = "CRITICAL"
+        else:
+            alert_type = "RUNTIME_ERROR"
+            severity = "HIGH"
+    elif level == "WARN":
+        alert_type = "BUSINESS_WARNING"
+        severity = "LOW"
+
+    if alert_type is None:
+        return None
+
+    return {
+        "incident_id": f"inc_{uuid.uuid4().hex[:10]}",
+        "timestamp": datetime.utcnow().isoformat(),
+        "service": service,
+        "alert_type": alert_type,
+        "severity": severity,
+        "message": message,
+        "evidence": {
+            "log_timestamp": log.get("timestamp"),
+            "log_level": level,
+            "extra": extra,
+        },
+    }
+
+
 def generate_alerts(logs):
     alerts = []
+    seen = set()
 
     for log in logs:
-        service = log["service"]
-        level = log["level"]
-        message = log["message"]
-        extra = log.get("extra", {})
+        alert = _classify_alert(log)
+        if alert is None:
+            continue
 
-        # Rule 1: Runtime errors (highest priority)
-        if level == "ERROR":
-            alerts.append({
-                "timestamp": datetime.utcnow().isoformat(),
-                "service": service,
-                "type": "RUNTIME_ERROR",
-                "severity": "HIGH",
-                "message": message,
-                "details": extra
-            })
-        # Rule 2: Invalid input detection
-        elif "invalid input" in message.lower():
-            alerts.append({
-                "timestamp": datetime.utcnow().isoformat(),
-                "service": service,
-                "type": "INVALID_INPUT",
-                "severity": "MEDIUM",
-                "message": message,
-                "details": extra
-            })
+        dedupe_key = (alert["service"], alert["alert_type"], alert["message"])
+        if dedupe_key in seen:
+            continue
 
-        #  Rule 3: Dependency failure
-        elif level == "UNAVAILABLE":
-            alerts.append({
-                "timestamp": datetime.utcnow().isoformat(),
-                "service": service,
-                "type": "DEPENDENCY_FAILURE",
-                "severity": "CRITICAL",
-                "message": message,
-                "details": extra
-            })
+        seen.add(dedupe_key)
+        alerts.append(alert)
 
     return alerts
 

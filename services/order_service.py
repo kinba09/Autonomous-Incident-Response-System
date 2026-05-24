@@ -17,7 +17,7 @@ def process_order(order):
     try:
         if order is None:
             log_event(
-                "UNAVAILABLE",
+                "ERROR",
                 service_name,
                 "Order processing failed: missing order payload",
                 {"order": order}
@@ -26,7 +26,7 @@ def process_order(order):
 
         if order.get("item") == "Laptop":
             log_event(
-                "UNAVAILABLE",
+                "ERROR",
                 service_name,
                 "Order processing failed due to inventory service error",
                 {"order": order}
@@ -43,7 +43,7 @@ def process_order(order):
 
     except Exception as e:
         log_event(
-            "UNAVAILABLE",
+            "ERROR",
             service_name,
             "Order processing failed",
             {"error": str(e)}
