@@ -1,0 +1,4 @@
+{"timestamp": "2026-05-24T11:57:01.542130", "service": "auth-service", "type": "RUNTIME_ERROR", "severity": "HIGH", "message": "Login failed: Unauthorized access attempt", "details": {"error": "'NoneType' object is not subscriptable"}}
+{"timestamp": "2026-05-24T11:57:01.542130", "service": "payment-service", "type": "INVALID_INPUT", "severity": "MEDIUM", "message": "Payment failed due to invalid input", "details": {"amount": null, "balance": 500}}
+{"timestamp": "2026-05-24T11:57:01.542130", "service": "order-service", "type": "DEPENDENCY_FAILURE", "severity": "CRITICAL", "message": "Order processing failed due to inventory service error", "details": {"order": {"item": "Laptop", "quantity": 1}}}
+{"timestamp": "2026-05-24T11:57:01.542130", "service": "order-service", "type": "DEPENDENCY_FAILURE", "severity": "CRITICAL", "message": "Order processing failed", "details": {"error": "Inventory service unavailable"}}
